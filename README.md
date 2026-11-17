@@ -318,6 +318,8 @@ StudentCC/
 
 ## Building and Running Locally
 
+On Windows, use the included `gradlew.bat` wrapper so the project builds with its pinned Gradle version.
+
 ### Prerequisites
 - Java Development Kit (JDK) 17
 - Android Studio (Hedgehog 2023.1.1 or newer recommended)
