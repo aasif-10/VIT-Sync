@@ -10,8 +10,8 @@ import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
 import java.util.Calendar;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Schedules a daily background sync job to fire randomly between 12:00 AM and 1:00 AM.
@@ -37,7 +37,7 @@ public final class NightlySyncScheduler {
             Calendar target = Calendar.getInstance();
             target.set(Calendar.HOUR_OF_DAY, 0);
 
-            Random random = new Random();
+            ThreadLocalRandom random = ThreadLocalRandom.current();
             int randomMinute = random.nextInt(60);
             int randomSecond = random.nextInt(60);
 
