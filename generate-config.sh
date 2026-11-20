@@ -13,6 +13,11 @@ fi
 
 required_vars=("FIREBASE_API_KEY" "FIREBASE_PROJECT_ID" "FIREBASE_PROJECT_NUMBER" "FIREBASE_APP_ID" "FIREBASE_STORAGE_BUCKET")
 
+build_release() {
+    echo "🚀 Building release APK..."
+    ./gradlew assembleRelease
+}
+
 has_missing=false
 for var in "${required_vars[@]}"; do
     if [ -z "${!var}" ]; then
@@ -25,8 +30,7 @@ if [ "$has_missing" = true ]; then
     if [ -s "app/google-services.json" ]; then
         echo "⚠️ Warning: Firebase environment variables not fully set, but app/google-services.json exists. Using existing configuration."
         if [ "$1" == "--build" ]; then
-            echo "🚀 Building release APK..."
-            ./gradlew assembleRelease
+            build_release
         fi
         exit 0
     else
@@ -51,6 +55,5 @@ sed -e "s/\${FIREBASE_PROJECT_NUMBER}/$FIREBASE_PROJECT_NUMBER/g" \
 echo "✅ google-services.json generated successfully!"
 
 if [ "$1" == "--build" ]; then
-    echo "🚀 Building release APK..."
-    ./gradlew assembleRelease
+    build_release
 fi
